@@ -122,6 +122,16 @@
           <input type="email" id="email" name="email" required />
           <span id="emailError" class="error-message"></span>
 
+          <label for="contactNo">Contact Number:</label>
+          <input
+            type="tel"
+            id="contactNo"
+            name="contactNo"
+            placeholder="E.g., 1234567890"
+            required
+          />
+          <span id="contactNoError" class="error-message"></span>
+
           <label for="amount">Donation Amount (INR):</label>
           <input type="number" id="amount" name="amount" required />
           <span id="amountError" class="error-message"></span>
@@ -139,7 +149,7 @@
         <div id="thank-you-message">
           <p>
             <i class="fas fa-check-circle"></i> Thank you for your generous
-            support, <span id="donorName"></span>!
+            support, <u id="donorName"></u>!
           </p>
           <p>
             We appreciate your donation of ₹ <span id="donationAmount"></span>.
@@ -154,11 +164,13 @@
         document.getElementById("nameError").innerText = "";
         document.getElementById("emailError").innerText = "";
         document.getElementById("amountError").innerText = "";
+        document.getElementById("contactNoError").innerText = "";
 
         // Get values from the form
         var name = document.getElementById("name").value;
         var email = document.getElementById("email").value;
         var amount = document.getElementById("amount").value;
+        var contactNo = document.getElementById("contactNo").value;
 
         // Validate the form fields
         if (name.trim() === "") {
@@ -174,7 +186,16 @@
           return;
         }
 
-        if (amount.trim() === "" || isNaN(amount)|| amount<1) {
+        // Validate the contact number
+        // var contactNoRegex = /^\+\d{1,3}\s\d{1,}\d{1,}\d{1,}$/;
+        if (contactNo.length !== 10) {
+          document.getElementById("contactNoError").innerText =
+            "Enter a valid contact number";
+          return;
+        }
+
+        //validate donation
+        if (amount.trim() === "" || isNaN(amount) || amount < 1) {
           document.getElementById("amountError").innerText =
             "Please Enter a valid donation amount";
           return;
@@ -192,6 +213,7 @@
           var name = document.getElementById("name").value;
           var email = document.getElementById("email").value;
           var amount = document.getElementById("amount").value;
+          var contactNo = document.getElementById("contactNo").value;
 
           // Additional validation logic can be added here
 
@@ -212,11 +234,13 @@
         document.getElementById("name").value = "";
         document.getElementById("email").value = "";
         document.getElementById("amount").value = "";
+        document.getElementById("contactNo").value = "";
 
         // Reset error messages
         document.getElementById("nameError").innerText = "";
         document.getElementById("emailError").innerText = "";
         document.getElementById("amountError").innerText = "";
+        document.getElementById("contactError").innerText = "";
 
         // Hide thank-you message
         document.getElementById("thank-you-message").style.display = "none";
